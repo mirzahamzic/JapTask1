@@ -19,4 +19,9 @@ namespace norm_calc.Dtos
         public string IngredientUnit { get; set; }
 
     }
+
+    public class GetAllRecipesDto
+    {
+        public List<GetRecipeDto> GetAllRecipes { get; set; }
+    }
 }

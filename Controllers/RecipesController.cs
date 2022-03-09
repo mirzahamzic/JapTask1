@@ -31,5 +31,12 @@ namespace norm_calc.Controllers
             return Ok(recipe);
         }
 
+        [HttpGet("get-all-recipes")]
+        public IActionResult GetAllRecipes()
+        {
+            var allRecipes = _recipeServices.GetAllRecipes();
+            return Ok(allRecipes);
+        }
+
     }
 }

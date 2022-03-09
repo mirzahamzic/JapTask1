@@ -2,6 +2,7 @@
 using norm_calc.Dtos;
 using norm_calc.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace norm_calc.Services
@@ -69,5 +70,26 @@ namespace norm_calc.Services
             return recipeFromDB;
         }
 
+        public List<GetRecipeDto> GetAllRecipes()
+        {
+            var recipesFromDB = _context.Recipes.Select(recipe => new GetRecipeDto()
+            {
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Cost = recipe.Cost,
+                CategoryName = recipe.Category.Name,
+                Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
+                {
+                    IngredientName = n.Ingredient.Name,
+                    IngredientCost = n.Price,
+                    IngredientQuantity = n.Quantity,
+                    IngredientUnit = n.Unit,
+                }).ToList()
+            }
+            ).ToList();
+
+            return recipesFromDB;
+
+        }
     }
 }
