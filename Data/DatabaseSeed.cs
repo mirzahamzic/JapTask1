@@ -18,7 +18,7 @@ namespace norm_calc.Data
                 if (!context.Ingredients.Any())
                 {
                     context.Ingredients.AddRange(
-                        new Ingredient()
+                        new GetIngredientDto()
                         {
                             Name = "Brasno",
                             UnitQuantity = 1,
@@ -27,7 +27,7 @@ namespace norm_calc.Data
                             Created_at = DateTime.Now.AddDays(-1)
 
                         },
-                        new Ingredient()
+                        new GetIngredientDto()
                         {
                             Name = "Secer",
                             UnitQuantity = 1,
@@ -35,7 +35,7 @@ namespace norm_calc.Data
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
-                        }, new Ingredient()
+                        }, new GetIngredientDto()
                         {
                             Name = "Ulje",
                             UnitQuantity = 1,
@@ -43,7 +43,7 @@ namespace norm_calc.Data
                             UnitOfMeasure = "l",
                             Created_at = DateTime.Now.AddDays(-2)
 
-                        }, new Ingredient()
+                        }, new GetIngredientDto()
                         {
                             Name = "Piletina",
                             UnitQuantity = 1,
@@ -51,7 +51,7 @@ namespace norm_calc.Data
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
-                        }, new Ingredient()
+                        }, new GetIngredientDto()
                         {
                             Name = "Maslinovo ulje",
                             UnitQuantity = 1,

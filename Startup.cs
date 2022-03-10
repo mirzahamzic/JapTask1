@@ -37,6 +37,7 @@ namespace norm_calc
 
             //  Configure the services
             services.AddTransient<RecipeServices>();
+            services.AddTransient<IngredientServices>();
 
             //  Configure DBContext with SQL database
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
