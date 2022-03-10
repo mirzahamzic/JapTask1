@@ -38,5 +38,19 @@ namespace norm_calc.Controllers
             return Ok(allRecipes);
         }
 
+        [HttpGet("get-recipes-by-category/{id}")]
+        public IActionResult GetAllRecipesByCategory(int id)
+        {
+            var allRecipes = _recipeServices.GetRecipeByCategory(id);
+            return Ok(allRecipes);
+        }
+
+        [HttpGet("get-recipes-by-search-term/{searchTerm}")]
+        public IActionResult SearchRecipe(string searchTerm)
+        {
+            var allRecipes = _recipeServices.SearchRecipe(searchTerm);
+            return Ok(allRecipes);
+        }
+
     }
 }

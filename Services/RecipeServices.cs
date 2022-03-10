@@ -1,4 +1,5 @@
-﻿using norm_calc.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using norm_calc.Data;
 using norm_calc.Dtos;
 using norm_calc.Models;
 using System;
@@ -41,6 +42,7 @@ namespace norm_calc.Services
                     Unit = ingredient.IngredientUnit,
                     Price = ingredient.IngredientCost,
                     Quantity = ingredient.IngredientQuantity,
+
 
                 };
 
@@ -90,6 +92,49 @@ namespace norm_calc.Services
 
             return recipesFromDB;
 
+        }
+
+        public List<GetRecipeDto> GetRecipeByCategory(int categoryId)
+        {
+            var recipesFromDB = _context.Recipes.Where(n => n.CategoryId == categoryId).Select(recipe => new GetRecipeDto()
+            {
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Cost = recipe.Cost,
+                CategoryName = recipe.Category.Name,
+                Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
+                {
+                    IngredientName = n.Ingredient.Name,
+                    IngredientCost = n.Price,
+                    IngredientQuantity = n.Quantity,
+                    IngredientUnit = n.Unit,
+                }).ToList()
+            }
+            ).ToList();
+
+            return recipesFromDB;
+
+        }
+
+        public GetRecipeDto SearchRecipe(string searchTerm)
+        {
+            var recipeFromDB = _context.Recipes.Where(n => n.Name.Contains(searchTerm)).Select(recipe => new GetRecipeDto()
+            {
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Cost = recipe.Cost,
+                CategoryName = recipe.Category.Name,
+                Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
+                {
+                    IngredientName = n.Ingredient.Name,
+                    IngredientCost = n.Price,
+                    IngredientQuantity = n.Quantity,
+                    IngredientUnit = n.Unit,
+                }).ToList()
+            }
+            ).FirstOrDefault();
+
+            return recipeFromDB;
         }
     }
 }

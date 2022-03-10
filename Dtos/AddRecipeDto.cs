@@ -16,8 +16,20 @@ namespace norm_calc.Dtos
     {
         public int IngredientId { get; set; }
         public double IngredientQuantity { get; set; }
-        public double IngredientCost { get; set; }
+        public double IngredientCost
+        {
+            get
+            {
+                if (IngredientUnit == "gr" || IngredientUnit == "ml")
+                {
+                    return IngredientQuantity * (IngredientUnitPrice / 1000);
+                }
+
+                return IngredientQuantity * IngredientUnitPrice;
+            }
+        }
         public string IngredientUnit { get; set; }
+        public double IngredientUnitPrice { get; set; }
 
     }
 }
