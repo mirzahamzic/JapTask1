@@ -37,7 +37,7 @@ namespace norm_calc.Services
 
                 var recipe_ingredient = new Recipe_Ingredient()
                 {
-                    RecipeId = newRecipe.Id,
+                    RecipeId = newRecipe.Id, //geting id after recipe is saved to DB
                     IngredientId = ingredient.IngredientId,
                     Unit = ingredient.IngredientUnit,
                     Price = ingredient.IngredientCost,

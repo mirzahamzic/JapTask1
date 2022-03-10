@@ -38,9 +38,20 @@ namespace norm_calc
             //  Configure the services
             services.AddTransient<RecipeServices>();
             services.AddTransient<IngredientServices>();
+            services.AddTransient<CategoryServices>();
 
             //  Configure DBContext with SQL database
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
+
+            //  CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "CORS",
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+                                  });
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -61,6 +72,8 @@ namespace norm_calc
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CORS");
 
             app.UseAuthorization();
 

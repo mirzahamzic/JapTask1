@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using norm_calc.Services;
 
@@ -15,6 +16,7 @@ namespace norm_calc.Controllers
             _ingredientServices = ingredientServices;
         }
 
+        [EnableCors("CORS")]
         [HttpGet("get-all-ingredients")]
         public IActionResult GetAllRecipes()
         {

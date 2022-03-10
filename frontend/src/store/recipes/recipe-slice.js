@@ -17,7 +17,8 @@ export const createRecipe = createAsyncThunk(
   "recipes/create",
   async (recipeData, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
+      //   const token = thunkAPI.getState().auth.user.token;
+      const token = "dummytoken";
       return await recipeService.createRecipe(recipeData, token);
     } catch (error) {
       const message =
@@ -158,8 +159,7 @@ export const recipeSlice = createSlice({
     [getAllRecipes.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.recentRecipes = action.payload.recentRecipes;
-      state.hotRecipes = action.payload.hotRecipes;
+      state.recipes = action.payload;
     },
     [getAllRecipes.rejected]: (state, action) => {
       state.isLoading = false;

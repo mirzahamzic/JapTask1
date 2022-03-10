@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import ingredientService from "./ingredient-services";
+import categoryService from "./category-services";
 
 const initialState = {
-  ingredients: [],
-  currentIngredient: {},
+  categories: [],
+  currentCategory: {},
   status: "",
   message: "",
   isError: false,
@@ -12,14 +12,14 @@ const initialState = {
   isLoadMore: true,
 };
 
-// Get all ingredients
-export const getAllIngredients = createAsyncThunk(
-  "ingredients/getAll",
+// Get all categories
+export const getAllCategories = createAsyncThunk(
+  "categories/getAll",
   async (_, thunkAPI) => {
     try {
       //   const token = thunkAPI.getState().auth.user.token;
       const token = "dummytokenfornow";
-      return await ingredientService.getAllIngredients(token);
+      return await categoryService.getAllCategories(token);
     } catch (error) {
       const message =
         (error.response &&
@@ -33,22 +33,22 @@ export const getAllIngredients = createAsyncThunk(
   }
 );
 
-export const ingredientSlice = createSlice({
-  name: "ingredient",
+export const categorySlice = createSlice({
+  name: "category",
   initialState,
   reducers: {
     reset: (state) => initialState,
   },
   extraReducers: {
-    [getAllIngredients.pending]: (state) => {
+    [getAllCategories.pending]: (state) => {
       state.isLoading = true;
     },
-    [getAllIngredients.fulfilled]: (state, action) => {
+    [getAllCategories.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.ingredients = action.payload;
+      state.categories = action.payload;
     },
-    [getAllIngredients.rejected]: (state, action) => {
+    [getAllCategories.rejected]: (state, action) => {
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload;
@@ -56,5 +56,5 @@ export const ingredientSlice = createSlice({
   },
 });
 
-export const { reset } = ingredientSlice.actions;
-export default ingredientSlice.reducer;
+export const { reset } = categorySlice.actions;
+export default categorySlice.reducer;

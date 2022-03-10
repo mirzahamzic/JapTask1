@@ -10,7 +10,7 @@ const createRecipe = async (recipeData, token) => {
     },
   };
 
-  const response = await axios.post(API_URL, recipeData, config);
+  const response = await axios.post("https://localhost:5001/api/Recipes/add-recipe-ingredient", recipeData, config);
 
   return response.data;
 };
@@ -24,7 +24,7 @@ const updateRecipe = async (recipeData, token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.put(API_URL + recipeId, {text}, config);
+  const response = await axios.put(API_URL + recipeId, { text }, config);
   return response.data;
 };
 
@@ -77,8 +77,6 @@ const removeRecipe = async (recipeId, token) => {
   const response = await axios.delete(API_URL + recipeId, config);
   return response.data;
 };
-
-
 
 const recipeService = {
   createRecipe,

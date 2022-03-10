@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using norm_calc.Data;
 using norm_calc.Dtos;
@@ -17,6 +18,7 @@ namespace norm_calc.Controllers
             _recipeServices = recipeServices;
         }
 
+        [EnableCors("CORS")]
         [HttpPost("add-recipe-ingredient")]
         public IActionResult AddBook([FromBody] AddRecipeDto recipe)
         {
