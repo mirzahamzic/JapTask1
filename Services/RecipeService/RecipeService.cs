@@ -1,18 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using norm_calc.Data;
+﻿using norm_calc.Data;
 using norm_calc.Dtos;
 using norm_calc.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace norm_calc.Services
+namespace norm_calc.Services.RecipeService
 {
-    public class RecipeServices
+    public class RecipeService : IRecipeService
     {
         private readonly AppDbContext _context;
 
-        public RecipeServices(AppDbContext context)
+        public RecipeService(AppDbContext context)
         {
             _context = context;
         }
@@ -51,27 +50,6 @@ namespace norm_calc.Services
             }
         }
 
-        public GetRecipeDto GetRecipeById(int recipeId)
-        {
-            var recipeFromDB = _context.Recipes.Where(n => n.Id == recipeId).Select(recipe => new GetRecipeDto()
-            {
-                Name = recipe.Name,
-                Description = recipe.Description,
-                Cost = recipe.Cost,
-                CategoryName = recipe.Category.Name,
-                Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
-                {
-                    IngredientName = n.Ingredient.Name,
-                    IngredientCost = n.Price,
-                    IngredientQuantity = n.Quantity,
-                    IngredientUnit = n.Unit,
-                }).ToList()
-            }
-            ).FirstOrDefault();
-
-            return recipeFromDB;
-        }
-
         public List<GetRecipeDto> GetAllRecipes()
         {
             var recipesFromDB = _context.Recipes.Select(recipe => new GetRecipeDto()
@@ -88,10 +66,9 @@ namespace norm_calc.Services
                     IngredientUnit = n.Unit,
                 }).ToList()
             }
-            ).ToList();
+                        ).ToList();
 
             return recipesFromDB;
-
         }
 
         public List<GetRecipeDto> GetRecipeByCategory(int categoryId)
@@ -113,7 +90,27 @@ namespace norm_calc.Services
             ).ToList();
 
             return recipesFromDB;
+        }
 
+        public GetRecipeDto GetRecipeById(int recipeId)
+        {
+            var recipeFromDB = _context.Recipes.Where(n => n.Id == recipeId).Select(recipe => new GetRecipeDto()
+            {
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Cost = recipe.Cost,
+                CategoryName = recipe.Category.Name,
+                Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
+                {
+                    IngredientName = n.Ingredient.Name,
+                    IngredientCost = n.Price,
+                    IngredientQuantity = n.Quantity,
+                    IngredientUnit = n.Unit,
+                }).ToList()
+            }
+           ).FirstOrDefault();
+
+            return recipeFromDB;
         }
 
         public GetRecipeDto SearchRecipe(string searchTerm)
@@ -132,7 +129,7 @@ namespace norm_calc.Services
                     IngredientUnit = n.Unit,
                 }).ToList()
             }
-            ).FirstOrDefault();
+           ).FirstOrDefault();
 
             return recipeFromDB;
         }

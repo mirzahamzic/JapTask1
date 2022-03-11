@@ -71,9 +71,13 @@ const AddRecipe = (props) => {
     <Spinner />;
   }
 
-  const addIngredientToLocalList = (e) => {
-    e.preventDefault();
+  const addIngredientToLocalList = () => {
     const data = getValues();
+
+    if (Object.values(data).includes("")) {
+      toast.error("Please add ingredient");
+      return;
+    }
 
     const currentIngredient = ingredients.find(
       (item) => item.id == data.ingredientId
@@ -165,6 +169,9 @@ const AddRecipe = (props) => {
                 })}
                 isInvalid={errors.ingredientId}
               >
+                <option default disabled>
+                  Choose ingredient
+                </option>
                 {ingredients.map((ingredient) => (
                   <option key={ingredient.id} value={ingredient.id}>
                     {ingredient.name}
@@ -185,6 +192,9 @@ const AddRecipe = (props) => {
                 })}
                 isInvalid={errors.ingredientUnit}
               >
+                <option default disabled>
+                  Choose measure unit
+                </option>
                 <option value="kg">Kilogram</option>
                 <option value="gr">Gram</option>
                 <option value="l">Liter</option>
@@ -231,13 +241,13 @@ const AddRecipe = (props) => {
                 (item) => item.id == ingredient.ingredientId
               );
               return (
-                <div key={i} className="d-flex justify-content-between">
-                  <p>{i + 1}</p>
-                  <p>{ingName.name}</p>
-                  <p>{ingredient.ingredientUnit}</p>
-                  <p>{ingredient.ingredientQuantity}</p>
-                  <p>{ingredient.ingredientCost}</p>
-                </div>
+                <Row key={i} className="d-flex justify-content-between">
+                  <Col>{i + 1}</Col>
+                  <Col>{ingName.name}</Col>
+                  <Col>{ingredient.ingredientUnit}</Col>
+                  <Col>{ingredient.ingredientQuantity}</Col>
+                  <Col>{ingredient.ingredientCost}</Col>
+                </Row>
               );
             })}
         </div>
