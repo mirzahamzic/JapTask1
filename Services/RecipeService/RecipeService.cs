@@ -4,6 +4,7 @@ using norm_calc.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace norm_calc.Services.RecipeService
 {
@@ -48,9 +49,10 @@ namespace norm_calc.Services.RecipeService
                 _context.Recipes_Ingredients.Add(recipe_ingredient);
                 _context.SaveChanges();
             }
+
         }
 
-        public List<GetRecipeDto> GetAllRecipes()
+        public async Task<List<GetRecipeDto>> GetAllRecipes()
         {
             var recipesFromDB = _context.Recipes.Select(recipe => new GetRecipeDto()
             {
@@ -71,7 +73,7 @@ namespace norm_calc.Services.RecipeService
             return recipesFromDB;
         }
 
-        public List<GetRecipeDto> GetRecipeByCategory(int categoryId)
+        public async Task<List<GetRecipeDto>> GetRecipeByCategory(int categoryId)
         {
             var recipesFromDB = _context.Recipes.Where(n => n.CategoryId == categoryId).Select(recipe => new GetRecipeDto()
             {
@@ -92,7 +94,7 @@ namespace norm_calc.Services.RecipeService
             return recipesFromDB;
         }
 
-        public GetRecipeDto GetRecipeById(int recipeId)
+        public async Task<GetRecipeDto> GetRecipeById(int recipeId)
         {
             var recipeFromDB = _context.Recipes.Where(n => n.Id == recipeId).Select(recipe => new GetRecipeDto()
             {
@@ -113,7 +115,7 @@ namespace norm_calc.Services.RecipeService
             return recipeFromDB;
         }
 
-        public GetRecipeDto SearchRecipe(string searchTerm)
+        public async Task<List<GetRecipeDto>> SearchRecipe(string searchTerm)
         {
             var recipeFromDB = _context.Recipes.Where(n => n.Name.ToLower().Contains(searchTerm) || n.Description.ToLower().Contains(searchTerm)).Select(recipe => new GetRecipeDto()
             {
@@ -129,7 +131,7 @@ namespace norm_calc.Services.RecipeService
                     IngredientUnit = n.Unit,
                 }).ToList()
             }
-           ).FirstOrDefault();
+           ).ToList();
 
             return recipeFromDB;
         }

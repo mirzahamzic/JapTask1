@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using norm_calc.Data;
 using norm_calc.Services;
+using norm_calc.Services.CategoryService;
+using norm_calc.Services.IngredientService;
 using norm_calc.Services.RecipeService;
 using System;
 using System.Collections.Generic;
@@ -38,8 +40,8 @@ namespace norm_calc
 
             //  Configure the services
             services.AddScoped<IRecipeService, RecipeService>();
-            services.AddTransient<IngredientServices>();
-            services.AddTransient<CategoryServices>();
+            services.AddTransient<IIngredientService, IngredientService>();
+            services.AddTransient<ICategoryService, CategoryService>();
 
             //  Configure DBContext with SQL database
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));

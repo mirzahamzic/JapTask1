@@ -1,21 +1,20 @@
-﻿using norm_calc.Data;
-using norm_calc.Dtos;
-using norm_calc.Models;
+﻿using norm_calc.Dtos;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using norm_calc.Data;
 using System.Linq;
 
-namespace norm_calc.Services
+namespace norm_calc.Services.IngredientService
 {
-    public class IngredientServices
+    public class IngredientService : IIngredientService
     {
         private readonly AppDbContext _context;
 
-        public IngredientServices(AppDbContext context)
+        public IngredientService(AppDbContext context)
         {
             _context = context;
         }
-
-        public List<GetIngredientsDto> GetAllIngredients()
+        public async Task<List<GetIngredientsDto>> GetAllIngredients()
         {
             var ingredientsFromDB = _context.Ingredients.Select(i => new GetIngredientsDto()
             {
@@ -27,7 +26,6 @@ namespace norm_calc.Services
             }).ToList();
 
             return ingredientsFromDB;
-
         }
     }
 }

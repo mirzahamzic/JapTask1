@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using norm_calc.Services;
+using norm_calc.Services.IngredientService;
+using System.Threading.Tasks;
 
 namespace norm_calc.Controllers
 {
@@ -9,19 +11,19 @@ namespace norm_calc.Controllers
     [ApiController]
     public class IngredientsController : ControllerBase
     {
-        private readonly IngredientServices _ingredientServices;
+        private readonly IIngredientService _ingredientServices;
 
-        public IngredientsController(IngredientServices ingredientServices)
+        public IngredientsController(IIngredientService ingredientServices)
         {
             _ingredientServices = ingredientServices;
         }
 
         [EnableCors("CORS")]
         [HttpGet("get-all-ingredients")]
-        public IActionResult GetAllRecipes()
+        public async Task<IActionResult> GetAllRecipes()
         {
             var allIngredients = _ingredientServices.GetAllIngredients();
-            return Ok(allIngredients);
+            return Ok(await allIngredients);
         }
     }
 }
