@@ -26,6 +26,7 @@ namespace norm_calc.Data
         }
 
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<GetIngredientDto> Ingredients { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Recipe_Ingredient> Recipes_Ingredients { get; set; }

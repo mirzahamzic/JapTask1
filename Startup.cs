@@ -40,8 +40,9 @@ namespace norm_calc
 
             //  Configure the services
             services.AddScoped<IRecipeService, RecipeService>();
-            services.AddTransient<IIngredientService, IngredientService>();
-            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddScoped<IIngredientService, IngredientService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
 
             //  Configure DBContext with SQL database
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));

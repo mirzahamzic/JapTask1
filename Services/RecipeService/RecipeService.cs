@@ -47,7 +47,7 @@ namespace norm_calc.Services.RecipeService
                 };
 
                 _context.Recipes_Ingredients.Add(recipe_ingredient);
-                _context.SaveChanges();
+                _context.SaveChangesAsync();
             }
 
         }
