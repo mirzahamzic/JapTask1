@@ -57,6 +57,7 @@ namespace norm_calc.Data
         public async Task<ServiceResponse<int>> Register(User user, string password)
         {
             ServiceResponse<int> response = new ServiceResponse<int>();
+
             if (await UserExists(user.Name))
             {
                 response.Success = false;

@@ -1,4 +1,5 @@
-﻿using norm_calc.Dtos;
+﻿using Microsoft.AspNetCore.Mvc;
+using norm_calc.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace norm_calc.Services.RecipeService
         public Task<List<GetRecipeDto>> GetRecipeByCategory(int categoryId);
         public Task<List<GetRecipeDto>> SearchRecipe(string searchTerm);
         public void AddRecipe(AddRecipeDto recipe);
+        public Task<List<GetRecipeDto>> GetAllRecipesByUserId();
 
     }
 }
