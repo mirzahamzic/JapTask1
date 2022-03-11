@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using norm_calc.Models;
+using norm_calc.Dtos;
 
 namespace norm_calc.Data
 {
@@ -27,7 +28,7 @@ namespace norm_calc.Data
 
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<GetIngredientDto> Ingredients { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Recipe_Ingredient> Recipes_Ingredients { get; set; }
     }

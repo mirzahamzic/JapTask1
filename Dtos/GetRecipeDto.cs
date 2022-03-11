@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace norm_calc.Dtos
 {
@@ -6,7 +7,13 @@ namespace norm_calc.Dtos
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public double Cost { get; set; }
+        public double Cost
+        {
+            get
+            {
+                return Ingredient.Select(i => i.IngredientCost).Sum();
+            }
+        }
         public string CategoryName { get; set; }
         public List<GetIngredientInRecipeDto> Ingredient { get; set; }
     }
@@ -15,8 +22,18 @@ namespace norm_calc.Dtos
     {
         public string IngredientName { get; set; }
         public double IngredientQuantity { get; set; }
-        public double IngredientCost { get; set; }
+        public double IngredientCost
+        {
+            get
+            {
+                return IngredientUnit == "ml" ? (UnitPrice * IngredientQuantity / 1000) :
+                                     IngredientUnit == "gr" ? (UnitPrice * IngredientQuantity / 1000) :
+                                     UnitPrice * IngredientQuantity;
+            }
+        }
         public string IngredientUnit { get; set; }
+        public double UnitPrice { get; set; }
+
 
     }
 
@@ -24,4 +41,6 @@ namespace norm_calc.Dtos
     {
         public List<GetRecipeDto> GetAllRecipes { get; set; }
     }
+
+
 }

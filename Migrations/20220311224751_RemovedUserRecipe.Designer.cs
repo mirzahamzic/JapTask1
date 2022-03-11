@@ -10,8 +10,8 @@ using norm_calc.Data;
 namespace norm_calc.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220311103241_user")]
-    partial class user
+    [Migration("20220311224751_RemovedUserRecipe")]
+    partial class RemovedUserRecipe
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,7 +36,7 @@ namespace norm_calc.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("norm_calc.Models.GetIngredientDto", b =>
+            modelBuilder.Entity("norm_calc.Models.Ingredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,9 +73,6 @@ namespace norm_calc.Migrations
                     b.Property<int>("IngredientId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 
@@ -101,6 +98,9 @@ namespace norm_calc.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime?>("Created_At")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -125,9 +125,6 @@ namespace norm_calc.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -146,7 +143,7 @@ namespace norm_calc.Migrations
 
             modelBuilder.Entity("norm_calc.Models.Recipe_Ingredient", b =>
                 {
-                    b.HasOne("norm_calc.Models.GetIngredientDto", "Ingredient")
+                    b.HasOne("norm_calc.Models.Ingredient", "Ingredient")
                         .WithMany("Recipes_Ingredients")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -179,7 +176,7 @@ namespace norm_calc.Migrations
                     b.Navigation("Recipes");
                 });
 
-            modelBuilder.Entity("norm_calc.Models.GetIngredientDto", b =>
+            modelBuilder.Entity("norm_calc.Models.Ingredient", b =>
                 {
                     b.Navigation("Recipes_Ingredients");
                 });

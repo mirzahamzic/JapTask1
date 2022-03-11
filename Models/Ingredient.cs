@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace norm_calc.Models
 {
-    public class GetIngredientDto
+    public class Ingredient
     {
         public int Id { get; set; }
         public string Name { get; set; }

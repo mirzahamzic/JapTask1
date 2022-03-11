@@ -2,15 +2,31 @@
 
 namespace norm_calc.Migrations
 {
-    public partial class UserCharacterRelationShip : Migration
+    public partial class RemovedUserRecipe : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Recipes_Users_UserId",
+                table: "Recipes");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Recipes_UserId",
+                table: "Recipes");
+
+            migrationBuilder.DropColumn(
+                name: "UserId",
+                table: "Recipes");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
                 name: "UserId",
                 table: "Recipes",
                 type: "int",
-                nullable: true);
+                nullable: false,
+                defaultValue: 0);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Recipes_UserId",
@@ -24,21 +40,6 @@ namespace norm_calc.Migrations
                 principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Recipes_Users_UserId",
-                table: "Recipes");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Recipes_UserId",
-                table: "Recipes");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "Recipes");
         }
     }
 }

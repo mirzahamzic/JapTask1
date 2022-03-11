@@ -10,7 +10,7 @@ using norm_calc.Data;
 namespace norm_calc.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220309205712_InitialMigration")]
+    [Migration("20220311222259_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,9 +73,6 @@ namespace norm_calc.Migrations
                     b.Property<int>("IngredientId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 
@@ -94,6 +91,30 @@ namespace norm_calc.Migrations
                     b.ToTable("Recipes_Ingredients");
                 });
 
+            modelBuilder.Entity("norm_calc.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("norm_calc.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -104,9 +125,6 @@ namespace norm_calc.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -116,9 +134,14 @@ namespace norm_calc.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
                 });
@@ -150,7 +173,15 @@ namespace norm_calc.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("norm_calc.Models.User", "User")
+                        .WithMany("Recipes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("norm_calc.Models.Category", b =>
@@ -161,6 +192,11 @@ namespace norm_calc.Migrations
             modelBuilder.Entity("norm_calc.Models.Ingredient", b =>
                 {
                     b.Navigation("Recipes_Ingredients");
+                });
+
+            modelBuilder.Entity("norm_calc.Models.User", b =>
+                {
+                    b.Navigation("Recipes");
                 });
 
             modelBuilder.Entity("norm_calc.Recipe", b =>

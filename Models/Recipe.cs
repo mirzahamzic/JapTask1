@@ -10,7 +10,6 @@ namespace norm_calc
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public double Cost { get; set; }
         public DateTime CreatedAt { get; set; }
 
         //Navigation properties
@@ -19,7 +18,9 @@ namespace norm_calc
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public User? User { get; set; }
+        //one-to-many beetwen user and recipe
+        //public int UserId { get; set; }
+        //public User? User { get; set; }
 
         //many-to-many between recipes and ingredients
         public List<Recipe_Ingredient> Recipes_Ingredients { get; set; }

@@ -12,7 +12,7 @@ namespace norm_calc.Models
         public DateTime? Created_At { get; set; }
 
         //Navigation properties
-        public List<Recipe> Recipes { get; set; }
+        //public List<Recipe> Recipes { get; set; }
 
     }
 }

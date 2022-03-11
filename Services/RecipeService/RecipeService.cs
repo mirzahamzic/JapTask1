@@ -31,13 +31,16 @@ namespace norm_calc.Services.RecipeService
 
         public void AddRecipe(AddRecipeDto recipe)
         {
+            //User user = _context.Users.FirstOrDefault(u => u.Id == GetUserId());
+
             var newRecipe = new Recipe()
             {
                 Name = recipe.Name,
                 Description = recipe.Description,
-                Cost = recipe.Cost,
+                //Cost = recipe.Cost,
                 CategoryId = recipe.CategoryId,
                 CreatedAt = DateTime.Now,
+                //UserId = user.Id,
             };
 
             _context.Recipes.Add(newRecipe);
@@ -52,14 +55,11 @@ namespace norm_calc.Services.RecipeService
                     RecipeId = newRecipe.Id, //geting id after recipe is saved to DB
                     IngredientId = ingredient.IngredientId,
                     Unit = ingredient.IngredientUnit,
-                    Price = ingredient.IngredientCost,
                     Quantity = ingredient.IngredientQuantity,
-
-
                 };
 
                 _context.Recipes_Ingredients.Add(recipe_ingredient);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
 
         }
@@ -70,17 +70,18 @@ namespace norm_calc.Services.RecipeService
             {
                 Name = recipe.Name,
                 Description = recipe.Description,
-                Cost = recipe.Cost,
+
+                //Cost = recipe.Cost,
                 CategoryName = recipe.Category.Name,
                 Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
                 {
-                    IngredientName = n.Ingredient.Name,
-                    IngredientCost = n.Price,
-                    IngredientQuantity = n.Quantity,
-                    IngredientUnit = n.Unit,
+                    IngredientName = n.Ingredient.Name, // ovo je polje iz ingredient tabele
+                    IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
+                    IngredientUnit = n.Unit, // ovo je polje iz join tabele
+                    UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
                 }).ToList()
-            }
-                        ).ToListAsync();
+
+            }).ToListAsync();
 
             return recipesFromDB;
         }
@@ -91,59 +92,70 @@ namespace norm_calc.Services.RecipeService
             {
                 Name = recipe.Name,
                 Description = recipe.Description,
-                Cost = recipe.Cost,
+
+                //Cost = recipe.Cost,
                 CategoryName = recipe.Category.Name,
                 Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
                 {
                     IngredientName = n.Ingredient.Name,
-                    IngredientCost = n.Price,
-                    IngredientQuantity = n.Quantity,
-                    IngredientUnit = n.Unit,
+                    IngredientQuantity = n.Ingredient.UnitQuantity,
+                    IngredientUnit = n.Ingredient.UnitOfMeasure,
+                    UnitPrice = n.Ingredient.UnitPrice,
+                    //IngredientCost = n.Price,
+                    //IngredientCost = (n.Ingredient.UnitPrice * n.Quantity) * 100000,
+                    //IngredientCost = n.Unit == "ml" ? (n.Ingredient.UnitPrice * n.Quantity / 1000) :
+                    //                 n.Unit == "gr" ? (n.Ingredient.UnitPrice * n.Quantity / 1000) :
+                    //                 n.Ingredient.UnitPrice * n.Quantity
+
                 }).ToList()
-            }
-            ).ToListAsync();
+
+            }).ToListAsync();
 
             return recipesFromDB;
         }
 
         public async Task<GetRecipeDto> GetRecipeById(int recipeId)
         {
-            var recipeFromDB = _context.Recipes.Where(n => n.Id == recipeId).Select(recipe => new GetRecipeDto()
+            var recipeFromDB = await _context.Recipes.Where(n => n.Id == recipeId).Select(recipe => new GetRecipeDto()
             {
                 Name = recipe.Name,
                 Description = recipe.Description,
-                Cost = recipe.Cost,
+
+                //Cost = recipe.Cost,
                 CategoryName = recipe.Category.Name,
                 Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
                 {
                     IngredientName = n.Ingredient.Name,
-                    IngredientCost = n.Price,
-                    IngredientQuantity = n.Quantity,
-                    IngredientUnit = n.Unit,
+                    IngredientQuantity = n.Ingredient.UnitQuantity,
+                    IngredientUnit = n.Ingredient.UnitOfMeasure,
+                    UnitPrice = n.Ingredient.UnitPrice,
+
                 }).ToList()
-            }
-           ).FirstOrDefault();
+
+            }).FirstOrDefaultAsync();
 
             return recipeFromDB;
         }
 
         public async Task<List<GetRecipeDto>> SearchRecipe(string searchTerm)
         {
-            var recipeFromDB = _context.Recipes.Where(n => n.Name.ToLower().Contains(searchTerm) || n.Description.ToLower().Contains(searchTerm)).Select(recipe => new GetRecipeDto()
+            var recipeFromDB = await _context.Recipes.Where(n => n.Name.ToLower().Contains(searchTerm) || n.Description.ToLower().Contains(searchTerm)).Select(recipe => new GetRecipeDto()
             {
                 Name = recipe.Name,
                 Description = recipe.Description,
-                Cost = recipe.Cost,
+
+                //Cost = recipe.Cost,
                 CategoryName = recipe.Category.Name,
                 Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
                 {
                     IngredientName = n.Ingredient.Name,
-                    IngredientCost = n.Price,
-                    IngredientQuantity = n.Quantity,
-                    IngredientUnit = n.Unit,
+                    IngredientQuantity = n.Ingredient.UnitQuantity,
+                    IngredientUnit = n.Ingredient.UnitOfMeasure,
+                    UnitPrice = n.Ingredient.UnitPrice,
+
                 }).ToList()
             }
-           ).ToList();
+           ).ToListAsync();
 
             return recipeFromDB;
         }
@@ -151,18 +163,20 @@ namespace norm_calc.Services.RecipeService
         public async Task<List<GetRecipeDto>> GetAllRecipesByUserId()
         {
             //in where we can access related table and get user id from there
-            var recipesFromDB = await _context.Recipes.Where(r => r.User.Id == GetUserId()).Select(recipe => new GetRecipeDto()
+            var recipesFromDB = await _context.Recipes.Select(recipe => new GetRecipeDto()
             {
                 Name = recipe.Name,
                 Description = recipe.Description,
-                Cost = recipe.Cost,
+
+                //Cost = recipe.Cost,
                 CategoryName = recipe.Category.Name,
                 Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
                 {
                     IngredientName = n.Ingredient.Name,
-                    IngredientCost = n.Price,
-                    IngredientQuantity = n.Quantity,
-                    IngredientUnit = n.Unit,
+                    IngredientQuantity = n.Ingredient.UnitQuantity,
+                    IngredientUnit = n.Ingredient.UnitOfMeasure,
+                    UnitPrice = n.Ingredient.UnitPrice,
+
                 }).ToList()
             }
                 ).ToListAsync();
