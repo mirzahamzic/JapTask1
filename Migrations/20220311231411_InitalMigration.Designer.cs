@@ -10,8 +10,8 @@ using norm_calc.Data;
 namespace norm_calc.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220311224751_RemovedUserRecipe")]
-    partial class RemovedUserRecipe
+    [Migration("20220311231411_InitalMigration")]
+    partial class InitalMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,9 +134,14 @@ namespace norm_calc.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
                 });
@@ -168,7 +173,15 @@ namespace norm_calc.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("norm_calc.Models.User", "User")
+                        .WithMany("Recipes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("norm_calc.Models.Category", b =>
@@ -179,6 +192,11 @@ namespace norm_calc.Migrations
             modelBuilder.Entity("norm_calc.Models.Ingredient", b =>
                 {
                     b.Navigation("Recipes_Ingredients");
+                });
+
+            modelBuilder.Entity("norm_calc.Models.User", b =>
+                {
+                    b.Navigation("Recipes");
                 });
 
             modelBuilder.Entity("norm_calc.Recipe", b =>

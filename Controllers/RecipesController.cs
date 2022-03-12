@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace norm_calc.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RecipesController : ControllerBase

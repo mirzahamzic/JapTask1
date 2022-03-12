@@ -18,9 +18,9 @@ namespace norm_calc
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        //one-to-many beetwen user and recipe
-        //public int UserId { get; set; }
-        //public User? User { get; set; }
+        //one-to-many beetwen user and reremocipe
+        public int? UserId { get; set; }
+        public User? User { get; set; }
 
         //many-to-many between recipes and ingredients
         public List<Recipe_Ingredient> Recipes_Ingredients { get; set; }

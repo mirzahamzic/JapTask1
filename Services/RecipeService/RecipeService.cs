@@ -31,7 +31,7 @@ namespace norm_calc.Services.RecipeService
 
         public void AddRecipe(AddRecipeDto recipe)
         {
-            //User user = _context.Users.FirstOrDefault(u => u.Id == GetUserId());
+            User user = _context.Users.FirstOrDefault(u => u.Id == GetUserId());
 
             var newRecipe = new Recipe()
             {
@@ -40,7 +40,7 @@ namespace norm_calc.Services.RecipeService
                 //Cost = recipe.Cost,
                 CategoryId = recipe.CategoryId,
                 CreatedAt = DateTime.Now,
-                //UserId = user.Id,
+                UserId = user.Id,
             };
 
             _context.Recipes.Add(newRecipe);

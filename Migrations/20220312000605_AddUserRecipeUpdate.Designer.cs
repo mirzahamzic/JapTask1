@@ -10,8 +10,8 @@ using norm_calc.Data;
 namespace norm_calc.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220311222259_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20220312000605_AddUserRecipeUpdate")]
+    partial class AddUserRecipeUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,7 +134,7 @@ namespace norm_calc.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -175,9 +175,7 @@ namespace norm_calc.Migrations
 
                     b.HasOne("norm_calc.Models.User", "User")
                         .WithMany("Recipes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Category");
 

@@ -132,9 +132,14 @@ namespace norm_calc.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
                 });
@@ -166,7 +171,13 @@ namespace norm_calc.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("norm_calc.Models.User", "User")
+                        .WithMany("Recipes")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("norm_calc.Models.Category", b =>
@@ -177,6 +188,11 @@ namespace norm_calc.Migrations
             modelBuilder.Entity("norm_calc.Models.Ingredient", b =>
                 {
                     b.Navigation("Recipes_Ingredients");
+                });
+
+            modelBuilder.Entity("norm_calc.Models.User", b =>
+                {
+                    b.Navigation("Recipes");
                 });
 
             modelBuilder.Entity("norm_calc.Recipe", b =>
