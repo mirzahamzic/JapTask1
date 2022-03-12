@@ -5,6 +5,7 @@ namespace norm_calc.Dtos
 {
     public class GetRecipeDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public double Cost
@@ -20,6 +21,7 @@ namespace norm_calc.Dtos
 
     public class GetIngredientInRecipeDto
     {
+        public int Id { get; set; }
         public string IngredientName { get; set; }
         public double IngredientQuantity { get; set; }
         public double IngredientCost

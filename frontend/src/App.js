@@ -5,6 +5,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { Container } from "react-bootstrap";
 
 import AddRecipe from "./components/recipes/AddRecipe";
+import Login from "./pages/Login";
+import PrivateRoute from "./components/PrivateRoute";
+import Home from "./pages/Home";
+import RecipesByCategory from "./components/recipes/RecipesByCategory";
+import RecipeDetail from "./pages/RecipeDetail";
+import Header from "./components/Header";
 
 import "./assets/css/bootstrap.min.css";
 
@@ -13,26 +19,30 @@ function App() {
     <>
       <Router>
         <div>
-          {/* <Header /> */}
+          <Header />
           <Routes>
             {/* public routes */}
-            <Route path="/addrecipe" element={<AddRecipe />} />
-            {/* <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Home />} /> */}
-
-            {/* protected routes
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
+            protected routes
             <Route element={<PrivateRoute />}>
-              <Route path="/question/:questionId" element={<Question />} />
-              <Route path="/addquestion" element={<AddQuestion />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/addrecipe" element={<AddRecipe />} />
+              <Route
+                path="/recipes/category/:categoryId"
+                element={<RecipesByCategory />}
+              />
+              <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
+              {/* <Route path="/question/:questionId" element={<Question />} /> */}
+              {/* <Route path="/addquestion" element={<AddQuestion />} />
               <Route
                 path="/editquestion/:questionId"
                 element={<EditQuestion />}
               />
               <Route path="/editanswer/:answerId" element={<EditAnswer />} />
               <Route path="/myquestions" element={<MyQuestions />} />
-              <Route path="/profile" element={<MyProfile />} />
-            </Route> */}
-
+              <Route path="/profile" element={<MyProfile />} /> */}
+            </Route>
             <Route
               path="*"
               element={

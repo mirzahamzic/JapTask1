@@ -4,6 +4,7 @@ import recipeService from "./recipe-services";
 const initialState = {
   recipes: [],
   currentRecipe: {},
+  recipesByCategory: [],
   status: "",
   message: "",
   isError: false,
@@ -17,8 +18,7 @@ export const createRecipe = createAsyncThunk(
   "recipes/create",
   async (recipeData, thunkAPI) => {
     try {
-      //   const token = thunkAPI.getState().auth.user.token;
-      const token = "dummytoken";
+      const token = thunkAPI.getState().auth.user.data;
       return await recipeService.createRecipe(recipeData, token);
     } catch (error) {
       const message =
@@ -93,13 +93,13 @@ export const getAllRecipes = createAsyncThunk(
   }
 );
 
-// Get all user's recipes
-export const getUserRecipes = createAsyncThunk(
-  "recipes/getUserRecipes",
-  async (_, thunkAPI) => {
+// Get all recipes by category
+export const getRecipesByCategory = createAsyncThunk(
+  "recipes/getRecipesByCategory",
+  async (categoryId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await recipeService.getUserRecipes(token);
+      const token = thunkAPI.getState().auth.user.data;
+      return await recipeService.getRecipesByCategoryId(categoryId, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -113,13 +113,13 @@ export const getUserRecipes = createAsyncThunk(
   }
 );
 
-// Get user recipe
-export const getRecipe = createAsyncThunk(
-  "recipes/getRecipe",
+// Get recipe by ID
+export const getRecipeById = createAsyncThunk(
+  "recipes/getRecipeById",
   async (recipeId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await recipeService.getRecipe(recipeId, token);
+      const token = thunkAPI.getState().auth.user.data;
+      return await recipeService.getRecipeById(recipeId, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -167,29 +167,29 @@ export const recipeSlice = createSlice({
       state.message = action.payload;
     },
 
-    [getUserRecipes.pending]: (state) => {
+    [getRecipesByCategory.pending]: (state) => {
       state.isLoading = true;
     },
-    [getUserRecipes.fulfilled]: (state, action) => {
+    [getRecipesByCategory.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.userRecipes = action.payload;
+      state.recipesByCategory = action.payload;
     },
-    [getUserRecipes.rejected]: (state, action) => {
+    [getRecipesByCategory.rejected]: (state, action) => {
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload;
     },
 
-    [getRecipe.pending]: (state) => {
+    [getRecipeById.pending]: (state) => {
       state.isLoading = true;
     },
-    [getRecipe.fulfilled]: (state, action) => {
+    [getRecipeById.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.recipe = action.payload;
+      state.currentRecipe = action.payload;
     },
-    [getRecipe.rejected]: (state, action) => {
+    [getRecipeById.rejected]: (state, action) => {
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload;

@@ -68,6 +68,7 @@ namespace norm_calc.Services.RecipeService
         {
             var recipesFromDB = await _context.Recipes.Select(recipe => new GetRecipeDto()
             {
+                Id = recipe.Id,
                 Name = recipe.Name,
                 Description = recipe.Description,
 
@@ -75,6 +76,7 @@ namespace norm_calc.Services.RecipeService
                 CategoryName = recipe.Category.Name,
                 Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
                 {
+                    Id = n.IngredientId,
                     IngredientName = n.Ingredient.Name, // ovo je polje iz ingredient tabele
                     IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
                     IngredientUnit = n.Unit, // ovo je polje iz join tabele
@@ -90,6 +92,7 @@ namespace norm_calc.Services.RecipeService
         {
             var recipesFromDB = await _context.Recipes.Where(n => n.CategoryId == categoryId).Select(recipe => new GetRecipeDto()
             {
+                Id = recipe.Id,
                 Name = recipe.Name,
                 Description = recipe.Description,
 
@@ -97,15 +100,13 @@ namespace norm_calc.Services.RecipeService
                 CategoryName = recipe.Category.Name,
                 Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
                 {
-                    IngredientName = n.Ingredient.Name,
-                    IngredientQuantity = n.Ingredient.UnitQuantity,
-                    IngredientUnit = n.Ingredient.UnitOfMeasure,
-                    UnitPrice = n.Ingredient.UnitPrice,
-                    //IngredientCost = n.Price,
-                    //IngredientCost = (n.Ingredient.UnitPrice * n.Quantity) * 100000,
-                    //IngredientCost = n.Unit == "ml" ? (n.Ingredient.UnitPrice * n.Quantity / 1000) :
-                    //                 n.Unit == "gr" ? (n.Ingredient.UnitPrice * n.Quantity / 1000) :
-                    //                 n.Ingredient.UnitPrice * n.Quantity
+
+                    Id = n.IngredientId,
+                    IngredientName = n.Ingredient.Name, // ovo je polje iz ingredient tabele
+                    IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
+                    IngredientUnit = n.Unit, // ovo je polje iz join tabele
+                    UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+
 
                 }).ToList()
 
@@ -118,6 +119,7 @@ namespace norm_calc.Services.RecipeService
         {
             var recipeFromDB = await _context.Recipes.Where(n => n.Id == recipeId).Select(recipe => new GetRecipeDto()
             {
+                Id = recipe.Id,
                 Name = recipe.Name,
                 Description = recipe.Description,
 
@@ -125,10 +127,11 @@ namespace norm_calc.Services.RecipeService
                 CategoryName = recipe.Category.Name,
                 Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
                 {
-                    IngredientName = n.Ingredient.Name,
-                    IngredientQuantity = n.Ingredient.UnitQuantity,
-                    IngredientUnit = n.Ingredient.UnitOfMeasure,
-                    UnitPrice = n.Ingredient.UnitPrice,
+                    Id = n.IngredientId,
+                    IngredientName = n.Ingredient.Name, // ovo je polje iz ingredient tabele
+                    IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
+                    IngredientUnit = n.Unit, // ovo je polje iz join tabele
+                    UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
 
                 }).ToList()
 
@@ -141,6 +144,7 @@ namespace norm_calc.Services.RecipeService
         {
             var recipeFromDB = await _context.Recipes.Where(n => n.Name.ToLower().Contains(searchTerm) || n.Description.ToLower().Contains(searchTerm)).Select(recipe => new GetRecipeDto()
             {
+                Id = recipe.Id,
                 Name = recipe.Name,
                 Description = recipe.Description,
 
@@ -148,10 +152,11 @@ namespace norm_calc.Services.RecipeService
                 CategoryName = recipe.Category.Name,
                 Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
                 {
-                    IngredientName = n.Ingredient.Name,
-                    IngredientQuantity = n.Ingredient.UnitQuantity,
-                    IngredientUnit = n.Ingredient.UnitOfMeasure,
-                    UnitPrice = n.Ingredient.UnitPrice,
+                    Id = n.IngredientId,
+                    IngredientName = n.Ingredient.Name, // ovo je polje iz ingredient tabele
+                    IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
+                    IngredientUnit = n.Unit, // ovo je polje iz join tabele
+                    UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
 
                 }).ToList()
             }
@@ -172,10 +177,11 @@ namespace norm_calc.Services.RecipeService
                 CategoryName = recipe.Category.Name,
                 Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
                 {
-                    IngredientName = n.Ingredient.Name,
-                    IngredientQuantity = n.Ingredient.UnitQuantity,
-                    IngredientUnit = n.Ingredient.UnitOfMeasure,
-                    UnitPrice = n.Ingredient.UnitPrice,
+                    Id = n.IngredientId,
+                    IngredientName = n.Ingredient.Name, // ovo je polje iz ingredient tabele
+                    IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
+                    IngredientUnit = n.Unit, // ovo je polje iz join tabele
+                    UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
 
                 }).ToList()
             }

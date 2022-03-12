@@ -17,8 +17,7 @@ export const getAllCategories = createAsyncThunk(
   "categories/getAll",
   async (_, thunkAPI) => {
     try {
-      //   const token = thunkAPI.getState().auth.user.token;
-      const token = "dummytokenfornow";
+      const token = thunkAPI.getState().auth.user.data;
       return await categoryService.getAllCategories(token);
     } catch (error) {
       const message =

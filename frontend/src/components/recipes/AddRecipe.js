@@ -46,25 +46,18 @@ const AddRecipe = (props) => {
 
   const onSubmit = (data) => {
     data.ingredients = localIngredient;
-    console.log(data.ingredients);
-    const recipeCost = data.ingredients
-      .map((item) => item.ingredientCost)
-      .reduce((prev, curr) => prev + curr, 0);
-
-    console.log(recipeCost);
 
     const createdRecipe = {
       name: data.name,
       description: data.description,
-      cost: recipeCost,
       categoryId: data.categoryId,
       ingredients: localIngredient,
     };
     alert(JSON.stringify(createdRecipe));
     console.log(createdRecipe);
     dispatch(createRecipe(createdRecipe));
-    // dispatch(getRecentRecipes());
     toast.info("Recipe added.");
+    navigate("/home");
   };
 
   if (isLoading) {
@@ -78,24 +71,6 @@ const AddRecipe = (props) => {
       toast.error("Please add ingredient");
       return;
     }
-
-    const currentIngredient = ingredients.find(
-      (item) => item.id == data.ingredientId
-    );
-    console.log(currentIngredient);
-
-    let ingredientCost;
-
-    if (data.ingredientUnit == "gr") {
-      ingredientCost =
-        data.ingredientQuantity * (currentIngredient.unitPrice / 1000);
-    } else if (data.ingredientUnit == "ml") {
-      ingredientCost =
-        data.ingredientQuantity * (currentIngredient.unitPrice / 1000);
-    } else {
-      ingredientCost = data.ingredientQuantity * currentIngredient.unitPrice;
-    }
-    data.ingredientCost = ingredientCost;
     alert(JSON.stringify(data));
     setLocalIngredient((prevState) => [...prevState, data]);
   };
@@ -246,7 +221,6 @@ const AddRecipe = (props) => {
                   <Col>{ingName.name}</Col>
                   <Col>{ingredient.ingredientUnit}</Col>
                   <Col>{ingredient.ingredientQuantity}</Col>
-                  <Col>{ingredient.ingredientCost}</Col>
                 </Row>
               );
             })}

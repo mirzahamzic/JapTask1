@@ -10,7 +10,11 @@ const createRecipe = async (recipeData, token) => {
     },
   };
 
-  const response = await axios.post("https://localhost:5001/api/Recipes/add-recipe-ingredient", recipeData, config);
+  const response = await axios.post(
+    "https://localhost:5001/api/Recipes/add-recipe-ingredient",
+    recipeData,
+    config
+  );
 
   return response.data;
 };
@@ -41,29 +45,33 @@ const getAllRecipes = async (offset, token) => {
   return response.data;
 };
 
-// Get user recipes
-const getUserRecipes = async (token) => {
+// Get recipe by category id
+const getRecipesByCategoryId = async (categoryId, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.get(API_URL + "user", config);
+  const response = await axios.get(
+    "https://localhost:5001/api/Recipes/get-recipes-by-category/" + categoryId,
+    config
+  );
 
   return response.data;
 };
 
-// Get user recipe
-const getRecipe = async (recipeId, token) => {
+// Get recipe by id
+const getRecipeById = async (recipeId, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-
-  const response = await axios.get(API_URL + recipeId, config);
-
+  const response = await axios.get(
+    "https://localhost:5001/api/Recipes/get-recipe-by-id/" + recipeId,
+    config
+  );
   return response.data;
 };
 
@@ -81,8 +89,8 @@ const removeRecipe = async (recipeId, token) => {
 const recipeService = {
   createRecipe,
   getAllRecipes,
-  getUserRecipes,
-  getRecipe,
+  getRecipesByCategoryId,
+  getRecipeById,
   removeRecipe,
 };
 
