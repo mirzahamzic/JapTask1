@@ -32,15 +32,19 @@ const updateRecipe = async (recipeData, token) => {
   return response.data;
 };
 
-// Get all recipes
-const getAllRecipes = async (offset, token) => {
+// Get filtered recipes
+const getFilteredRecipes = async (searchTerm, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.get(API_URL, config);
+  const response = await axios.get(
+    "https://localhost:5001/api/Recipes/get-recipes-by-search-term/" +
+      searchTerm,
+    config
+  );
 
   return response.data;
 };
@@ -88,7 +92,7 @@ const removeRecipe = async (recipeId, token) => {
 
 const recipeService = {
   createRecipe,
-  getAllRecipes,
+  getFilteredRecipes,
   getRecipesByCategoryId,
   getRecipeById,
   removeRecipe,

@@ -21,7 +21,7 @@ const RecipeDetail = () => {
     }
 
     dispatch(getRecipeById(recipeId));
-  }, [dispatch, isError, isSuccess, navigate, message]);
+  }, [isSuccess, recipeId, isError]);
 
   if (isLoading) {
     <h3>Loading...</h3>;
@@ -38,7 +38,10 @@ const RecipeDetail = () => {
         <h1 className="my-5">
           Recipe cost:{" "}
           <span className="text-success">
-            {currentRecipe.cost.toFixed(2)} KM
+            {currentRecipe &&
+              currentRecipe.cost &&
+              currentRecipe.cost.toFixed(2)}{" "}
+            KM
           </span>
         </h1>
       </div>
@@ -61,7 +64,7 @@ const RecipeDetail = () => {
             {currentRecipe &&
               currentRecipe.ingredient &&
               currentRecipe.ingredient.map((ingredient, i) => (
-                <tr key={ingredient.map}>
+                <tr key={ingredient.id}>
                   <td>{i + 1}</td>
                   <td>{ingredient.ingredientName}</td>
                   <td>{ingredient.ingredientQuantity}</td>

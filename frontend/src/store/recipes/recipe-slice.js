@@ -7,6 +7,7 @@ const initialState = {
   recipesByCategory: [],
   status: "",
   message: "",
+  searchTerm: "",
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -53,33 +54,13 @@ export const updateRecipe = createAsyncThunk(
   }
 );
 
-// Remove recipe
-export const removeRecipe = createAsyncThunk(
-  "recipes/removeRecipe",
-  async (recipeId, thunkAPI) => {
+// Get filtered recipes
+export const searchRecipes = createAsyncThunk(
+  "recipes/searchRecipes",
+  async (searchTerm, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await recipeService.removeRecipe(recipeId, token);
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
-// Get all recipes
-export const getAllRecipes = createAsyncThunk(
-  "recipes/getAll",
-  async (offset, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await recipeService.getAllRecipes(offset, token);
+      const token = thunkAPI.getState().auth.user.data;
+      return await recipeService.getFilteredRecipes(searchTerm, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -138,6 +119,9 @@ export const recipeSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => initialState,
+    search: (state, action) => {
+      state.searchTerm = action.payload;
+    },
   },
   extraReducers: {
     [createRecipe.pending]: (state) => {
@@ -153,15 +137,15 @@ export const recipeSlice = createSlice({
       state.message = action.payload;
     },
 
-    [getAllRecipes.pending]: (state) => {
+    [searchRecipes.pending]: (state) => {
       state.isLoading = true;
     },
-    [getAllRecipes.fulfilled]: (state, action) => {
+    [searchRecipes.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.recipes = action.payload;
+      state.recipesByCategory = action.payload;
     },
-    [getAllRecipes.rejected]: (state, action) => {
+    [searchRecipes.rejected]: (state, action) => {
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload;
@@ -197,5 +181,5 @@ export const recipeSlice = createSlice({
   },
 });
 
-export const { reset } = recipeSlice.actions;
+export const { reset, search } = recipeSlice.actions;
 export default recipeSlice.reducer;

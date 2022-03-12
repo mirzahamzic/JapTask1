@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { getRecipesByCategory, reset } from "../../store/recipes/recipe-slice";
+import {
+  getRecipesByCategory,
+  searchRecipes,
+  reset,
+} from "../../store/recipes/recipe-slice";
 import { Card, Container, Button, Row, Col } from "react-bootstrap";
 import { getAllCategories } from "../../store/categories/category-slice";
 import { GiTakeMyMoney } from "react-icons/gi";
+import Search from "../shared/Search";
 
 const RecipesByCategory = () => {
   const { categoryId } = useParams();
@@ -13,8 +18,15 @@ const RecipesByCategory = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { recipesByCategory, isError, isSuccess, isLoading, message } =
-    useSelector((state) => state.recipe);
+  const {
+    recipesByCategory,
+    recipes,
+    isError,
+    isSuccess,
+    isLoading,
+    message,
+    searchTerm,
+  } = useSelector((state) => state.recipe);
 
   const { categories } = useSelector((state) => state.category);
 
@@ -27,7 +39,22 @@ const RecipesByCategory = () => {
 
     dispatch(getRecipesByCategory(categoryId));
     dispatch(getAllCategories());
-  }, [dispatch, isError, isSuccess, navigate, message]);
+    
+  }, [isSuccess, categoryId, isError]);
+
+  useEffect(() => {
+   
+    const delayDebounceFn = setTimeout(() => {
+      if (searchTerm.length > 2) {
+        dispatch(searchRecipes(searchTerm));
+      } else {
+        dispatch(getRecipesByCategory(categoryId));
+        
+      }
+    }, 800);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm, categoryId, dispatch]);
 
   if (isLoading) {
     <h3>Loading...</h3>;
@@ -35,9 +62,14 @@ const RecipesByCategory = () => {
 
   return (
     <Container className="my-4">
-      <h1 className="my-4">
-        Category: {categoryName && categoryName.name && categoryName.name}{" "}
-      </h1>
+      <div className="text-center">
+        <h1 className="my-4">
+          Category: {categoryName && categoryName.name && categoryName.name}{" "}
+        </h1>
+      </div>
+      <div className="my-5">
+        <Search />
+      </div>
       <hr />
       {recipesByCategory.map((recipe, i) => (
         <div key={recipe.id}>
