@@ -95,6 +95,9 @@ namespace norm_calc
             // add contect accessor to acces the user so we have it in all methods
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            //add automaper
+            services.AddAutoMapper(typeof(Startup));
+
         }
 
 

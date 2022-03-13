@@ -21,6 +21,8 @@ const Home = () => {
       toast.error(message);
     }
 
+    
+
     dispatch(getAllCategories(limit));
   }, [isError, limit]);
 

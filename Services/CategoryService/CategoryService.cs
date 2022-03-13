@@ -26,5 +26,16 @@ namespace norm_calc.Services.CategoryService
             return categoriesFromDB;
 
         }
+
+        public async Task<List<GetCategoriesDto>> GetAllCategories()
+        {
+            var categoriesFromDB = await _context.Categories.Select(i => new GetCategoriesDto()
+            {
+                Id = i.Id,
+                Name = i.Name,
+            }).ToListAsync();
+
+            return categoriesFromDB;
+        }
     }
 }

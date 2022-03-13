@@ -14,7 +14,7 @@ import {
   getAllIngredients,
   reset as resetIngredients,
 } from "../../store/ingredients/ingredient-slice";
-import { getAllCategories } from "../../store/categories/category-slice";
+import { getAllCategoriesNoLoadMore } from "../../store/categories/category-slice";
 
 const AddRecipe = (props) => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const AddRecipe = (props) => {
     (state) => state.ingredient
   );
 
-  const { categories } = useSelector((state) => state.category);
+  const { categoriesInMenu } = useSelector((state) => state.category);
 
   useEffect(() => {
     if (isError) {
@@ -34,7 +34,7 @@ const AddRecipe = (props) => {
     }
 
     dispatch(getAllIngredients());
-    dispatch(getAllCategories());
+    dispatch(getAllCategoriesNoLoadMore());
   }, [dispatch, isError, isSuccess, navigate, message]);
 
   const {
@@ -105,7 +105,7 @@ const AddRecipe = (props) => {
                 })}
                 isInvalid={errors.categoryId}
               >
-                {categories.map((category) => (
+                {categoriesInMenu.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
                   </option>

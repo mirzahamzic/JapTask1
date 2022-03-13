@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace norm_calc.Controllers
 {
+    [EnableCors("CORS")]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
@@ -18,11 +19,18 @@ namespace norm_calc.Controllers
             _categoryServices = categoryServices;
         }
 
-        [EnableCors("CORS")]
+
         [HttpGet("get-all-categories/{limit}")]
         public async Task<IActionResult> GetAllCategories(int limit)
         {
             var allCategories = _categoryServices.GetAllCategories(limit);
+            return Ok(await allCategories);
+        }
+
+        [HttpGet("get-all-categories")]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var allCategories = _categoryServices.GetAllCategories();
             return Ok(await allCategories);
         }
     }

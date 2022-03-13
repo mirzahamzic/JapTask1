@@ -81,7 +81,8 @@ namespace norm_calc.Services.RecipeService
                     IngredientName = n.Ingredient.Name, // ovo je polje iz ingredient tabele
                     IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
                     IngredientUnit = n.Unit, // ovo je polje iz join tabele
-                    UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+                    UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele -  cijena sastojka u bazi
+                    UnitQuantity = n.Ingredient.UnitQuantity, //ovo je polje iz ingredient tabele - kolicina sastojka u bazi
                 }).ToList()
 
             }).Skip(limit).Take(5).ToListAsync();
@@ -107,9 +108,7 @@ namespace norm_calc.Services.RecipeService
                     IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
                     IngredientUnit = n.Unit, // ovo je polje iz join tabele
                     UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
-                    UnitQuantity = n.Ingredient.UnitQuantity,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
-
-
+                    UnitQuantity = n.Ingredient.UnitQuantity, //ovo je polje iz ingredient tabele - kolicina sastojka u bazi
 
                 }).ToList()
 
@@ -135,6 +134,8 @@ namespace norm_calc.Services.RecipeService
                     IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
                     IngredientUnit = n.Unit, // ovo je polje iz join tabele
                     UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+                    UnitQuantity = n.Ingredient.UnitQuantity,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+
 
                 }).ToList()
 
@@ -160,6 +161,8 @@ namespace norm_calc.Services.RecipeService
                     IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
                     IngredientUnit = n.Unit, // ovo je polje iz join tabele
                     UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+                    UnitQuantity = n.Ingredient.UnitQuantity,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+
 
                 }).ToList()
             }
@@ -185,6 +188,8 @@ namespace norm_calc.Services.RecipeService
                     IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
                     IngredientUnit = n.Unit, // ovo je polje iz join tabele
                     UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+                    UnitQuantity = n.Ingredient.UnitQuantity,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+
 
                 }).ToList()
             }

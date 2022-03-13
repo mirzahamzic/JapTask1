@@ -31,7 +31,7 @@ namespace norm_calc.Data
                         new Ingredient()
                         {
                             Name = "Brasno",
-                            UnitQuantity = 1,
+                            UnitQuantity = 10,
                             UnitPrice = 5,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-1)
@@ -40,7 +40,7 @@ namespace norm_calc.Data
                         new Ingredient()
                         {
                             Name = "Secer",
-                            UnitQuantity = 1,
+                            UnitQuantity = 12,
                             UnitPrice = 7,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -48,7 +48,7 @@ namespace norm_calc.Data
                         }, new Ingredient()
                         {
                             Name = "Ulje",
-                            UnitQuantity = 1,
+                            UnitQuantity = 25,
                             UnitPrice = 6.5,
                             UnitOfMeasure = "l",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -56,7 +56,7 @@ namespace norm_calc.Data
                         }, new Ingredient()
                         {
                             Name = "Piletina",
-                            UnitQuantity = 1,
+                            UnitQuantity = 50,
                             UnitPrice = 7,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -64,7 +64,7 @@ namespace norm_calc.Data
                         }, new Ingredient()
                         {
                             Name = "Maslinovo ulje",
-                            UnitQuantity = 1,
+                            UnitQuantity = 10,
                             UnitPrice = 12,
                             UnitOfMeasure = "l",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -72,7 +72,7 @@ namespace norm_calc.Data
                         }, new Ingredient()
                         {
                             Name = "Trapist",
-                            UnitQuantity = 1,
+                            UnitQuantity = 18,
                             UnitPrice = 12,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -80,7 +80,7 @@ namespace norm_calc.Data
                         }, new Ingredient()
                         {
                             Name = "Mocarela",
-                            UnitQuantity = 1,
+                            UnitQuantity = 8,
                             UnitPrice = 20,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -88,7 +88,7 @@ namespace norm_calc.Data
                         }, new Ingredient()
                         {
                             Name = "Paradajz Sos",
-                            UnitQuantity = 1,
+                            UnitQuantity = 10,
                             UnitPrice = 5,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -96,7 +96,7 @@ namespace norm_calc.Data
                         }, new Ingredient()
                         {
                             Name = "Kvasac",
-                            UnitQuantity = 1,
+                            UnitQuantity = 7,
                             UnitPrice = 10,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -104,7 +104,7 @@ namespace norm_calc.Data
                         }, new Ingredient()
                         {
                             Name = "Sampinjoni",
-                            UnitQuantity = 1,
+                            UnitQuantity = 5,
                             UnitPrice = 8.5,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -112,15 +112,15 @@ namespace norm_calc.Data
                         }, new Ingredient()
                         {
                             Name = "Cokalada",
-                            UnitQuantity = 1,
-                            UnitPrice = 15,
+                            UnitQuantity = 18,
+                            UnitPrice = 25,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
                         }, new Ingredient()
                         {
                             Name = "Kore za tortu",
-                            UnitQuantity = 1,
+                            UnitQuantity = 5,
                             UnitPrice = 20,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -128,7 +128,7 @@ namespace norm_calc.Data
                         }, new Ingredient()
                         {
                             Name = "Orasi",
-                            UnitQuantity = 1,
+                            UnitQuantity = 10,
                             UnitPrice = 15,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
@@ -181,8 +181,6 @@ namespace norm_calc.Data
 
 
 
-
-
                 if (!context.Users.Any())
                 {
                     string password = "admin123456";
@@ -204,6 +202,7 @@ namespace norm_calc.Data
                     user.PasswordSalt = passwordSalt;
                     user.Created_At = DateTime.Now;
 
+                    context.Users.Add(user);
                     await context.SaveChangesAsync();
 
                 };
