@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Container, Row, Col, Card, CardGroup } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllCategories } from "../store/categories/category-slice";
@@ -10,17 +10,23 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { categories, isError, isSuccess, message } = useSelector(
+  const { categories, isError, isSuccess, message, isLoadMore } = useSelector(
     (state) => state.category
   );
+
+  const [limit, setLimit] = useState(0);
 
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
 
-    dispatch(getAllCategories());
-  }, [dispatch, isError, isSuccess, navigate, message]);
+    dispatch(getAllCategories(limit));
+  }, [isError, limit]);
+
+  const loadMore = () => {
+    setLimit((prevState) => prevState + 4);
+  };
 
   return (
     <Container className="my-4 text-center">
@@ -31,6 +37,11 @@ const Home = () => {
             <CategoryItem category={category} />
           </Col>
         ))}
+        {categories.length > 3 && (
+          <Button size="lg" onClick={loadMore} disabled={!isLoadMore}>
+            Load More
+          </Button>
+        )}
       </Row>
     </Container>
   );

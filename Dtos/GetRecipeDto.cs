@@ -28,13 +28,15 @@ namespace norm_calc.Dtos
         {
             get
             {
-                return IngredientUnit == "ml" ? (UnitPrice * IngredientQuantity / 1000) :
+                return IngredientUnit == "ml" ? (((UnitPrice * IngredientQuantity) / UnitQuantity) / 1000) :
                                      IngredientUnit == "gr" ? (UnitPrice * IngredientQuantity / 1000) :
-                                     UnitPrice * IngredientQuantity;
+                                     (UnitPrice * IngredientQuantity) / UnitQuantity;
             }
         }
         public string IngredientUnit { get; set; }
         public double UnitPrice { get; set; }
+        public double UnitQuantity { get; set; }
+
 
 
     }

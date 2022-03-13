@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -8,19 +8,19 @@ import {
   reset,
 } from "../../store/recipes/recipe-slice";
 import { Card, Container, Button, Row, Col } from "react-bootstrap";
-import { getAllCategories } from "../../store/categories/category-slice";
 import { GiTakeMyMoney } from "react-icons/gi";
 import Search from "../shared/Search";
 
 const RecipesByCategory = () => {
   const { categoryId } = useParams();
+  const location = useLocation();
+  const categoryName = location.state.name;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const {
     recipesByCategory,
-    recipes,
     isError,
     isSuccess,
     isLoading,
@@ -28,9 +28,6 @@ const RecipesByCategory = () => {
     searchTerm,
   } = useSelector((state) => state.recipe);
 
-  const { categories } = useSelector((state) => state.category);
-
-  const categoryName = categories.find((cat) => cat.id == categoryId);
 
   useEffect(() => {
     if (isError) {
@@ -38,18 +35,14 @@ const RecipesByCategory = () => {
     }
 
     dispatch(getRecipesByCategory(categoryId));
-    dispatch(getAllCategories());
-    
   }, [isSuccess, categoryId, isError]);
 
   useEffect(() => {
-   
     const delayDebounceFn = setTimeout(() => {
       if (searchTerm.length > 2) {
         dispatch(searchRecipes(searchTerm));
       } else {
         dispatch(getRecipesByCategory(categoryId));
-        
       }
     }, 800);
 
@@ -62,9 +55,9 @@ const RecipesByCategory = () => {
 
   return (
     <Container className="my-4">
-      <div className="text-center">
+      <div className="text-warning">
         <h1 className="my-4">
-          Category: {categoryName && categoryName.name && categoryName.name}{" "}
+          Category: {categoryName}
         </h1>
       </div>
       <div className="my-5">
@@ -91,6 +84,7 @@ const RecipesByCategory = () => {
           <hr />
         </div>
       ))}
+
     </Container>
   );
 };

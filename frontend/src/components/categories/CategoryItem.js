@@ -4,6 +4,7 @@ import { GiMeal } from "react-icons/gi";
 import { Link } from "react-router-dom";
 
 const CategoryItem = ({ category }) => {
+  const categoryName = category.name;
   return (
     <Card className="m-4">
       <Card.Header></Card.Header>
@@ -13,8 +14,11 @@ const CategoryItem = ({ category }) => {
         </h1>
         <hr />
         <h4>{category.name}</h4>
-        <Link to={`/recipes/category/${category.id}`}>
-          <Button size="sm" variant="success" className='mt-4'>
+        <Link
+          to={`/recipes/category/${category.id}`}
+          state={{ name: categoryName }}
+        >
+          <Button size="sm" variant="success" className="mt-4">
             View
           </Button>
         </Link>

@@ -19,10 +19,10 @@ namespace norm_calc.Controllers
         }
 
         [EnableCors("CORS")]
-        [HttpGet("get-all-categories")]
-        public async Task<IActionResult> GetAllCategories()
+        [HttpGet("get-all-categories/{limit}")]
+        public async Task<IActionResult> GetAllCategories(int limit)
         {
-            var allCategories = _categoryServices.GetAllCategories();
+            var allCategories = _categoryServices.GetAllCategories(limit);
             return Ok(await allCategories);
         }
     }

@@ -38,13 +38,13 @@ namespace norm_calc.Controllers
             return Ok(await recipe);
         }
 
-        [HttpGet("get-all-recipes")]
-        public async Task<IActionResult> GetAllRecipes()
+        [HttpGet("get-all-recipes/{limit}")]
+        public async Task<IActionResult> GetAllRecipes(int limit)
         {
             //user claims from token
             //int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            var allRecipes = _recipeService.GetAllRecipes();
+            var allRecipes = _recipeService.GetAllRecipes(limit);
             return Ok(await allRecipes);
         }
 

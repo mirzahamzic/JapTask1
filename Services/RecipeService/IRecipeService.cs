@@ -7,7 +7,7 @@ namespace norm_calc.Services.RecipeService
 {
     public interface IRecipeService
     {
-        public Task<List<GetRecipeDto>> GetAllRecipes();
+        public Task<List<GetRecipeDto>> GetAllRecipes(int limit);
         public Task<GetRecipeDto> GetRecipeById(int recipeId);
         public Task<List<GetRecipeDto>> GetRecipeByCategory(int categoryId);
         public Task<List<GetRecipeDto>> SearchRecipe(string searchTerm);

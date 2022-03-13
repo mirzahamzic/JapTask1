@@ -186,6 +186,7 @@ const AddRecipe = (props) => {
               <Form.Control
                 type="number"
                 min="0"
+                step="0.01"
                 placeholder="Quantity..."
                 {...register("ingredientQuantity", {
                   required: "Quantity is required.",

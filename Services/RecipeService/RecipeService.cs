@@ -64,9 +64,10 @@ namespace norm_calc.Services.RecipeService
 
         }
 
-        public async Task<List<GetRecipeDto>> GetAllRecipes()
+        public async Task<List<GetRecipeDto>> GetAllRecipes(int limit)
         {
             var recipesFromDB = await _context.Recipes.Select(recipe => new GetRecipeDto()
+
             {
                 Id = recipe.Id,
                 Name = recipe.Name,
@@ -83,7 +84,7 @@ namespace norm_calc.Services.RecipeService
                     UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
                 }).ToList()
 
-            }).ToListAsync();
+            }).Skip(limit).Take(5).ToListAsync();
 
             return recipesFromDB;
         }
@@ -106,6 +107,8 @@ namespace norm_calc.Services.RecipeService
                     IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
                     IngredientUnit = n.Unit, // ovo je polje iz join tabele
                     UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+                    UnitQuantity = n.Ingredient.UnitQuantity,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+
 
 
                 }).ToList()

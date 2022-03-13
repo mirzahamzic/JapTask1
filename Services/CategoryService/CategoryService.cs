@@ -1,4 +1,5 @@
-﻿using norm_calc.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using norm_calc.Data;
 using norm_calc.Dtos;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,13 @@ namespace norm_calc.Services.CategoryService
         {
             _context = context;
         }
-        public async Task<List<GetCategoriesDto>> GetAllCategories()
+        public async Task<List<GetCategoriesDto>> GetAllCategories(int limit)
         {
-            var categoriesFromDB = _context.Categories.Select(i => new GetCategoriesDto()
+            var categoriesFromDB = await _context.Categories.Select(i => new GetCategoriesDto()
             {
                 Id = i.Id,
                 Name = i.Name,
-            }).ToList();
+            }).OrderBy(c => c.Name).Skip(limit).Take(4).ToListAsync();
 
             return categoriesFromDB;
 

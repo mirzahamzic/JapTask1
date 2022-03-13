@@ -14,11 +14,11 @@ const initialState = {
 
 // Get all categories
 export const getAllCategories = createAsyncThunk(
-  "categories/getAll",
-  async (_, thunkAPI) => {
+  "categories/getAllCategories",
+  async (limit, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.data;
-      return await categoryService.getAllCategories(token);
+      return await categoryService.getAllCategories(limit, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -45,7 +45,10 @@ export const categorySlice = createSlice({
     [getAllCategories.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.categories = action.payload;
+      if (action.payload.length < 4) {
+        state.isLoadMore = false;
+      }
+      action.payload.forEach((item) => state.categories.push(item));
     },
     [getAllCategories.rejected]: (state, action) => {
       state.isLoading = false;

@@ -4,6 +4,7 @@ using norm_calc.Data;
 using norm_calc.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace norm_calc.Data
 {
@@ -18,7 +19,7 @@ namespace norm_calc.Data
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
-        public static void Seed(IApplicationBuilder applicationBuilder)
+        public static async Task Seed(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
@@ -134,7 +135,7 @@ namespace norm_calc.Data
 
                         });
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 if (!context.Categories.Any())
@@ -175,7 +176,7 @@ namespace norm_calc.Data
                             Name = "Antipaste",
                         });
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
 
@@ -184,10 +185,10 @@ namespace norm_calc.Data
 
                 if (!context.Users.Any())
                 {
-                    string password = "passwordone";
+                    string password = "admin123456";
                     User user = new()
                     {
-                        Name = "User one"
+                        Name = "Admin"
                     };
 
                     byte[] passwordSalt;
@@ -203,7 +204,7 @@ namespace norm_calc.Data
                     user.PasswordSalt = passwordSalt;
                     user.Created_At = DateTime.Now;
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
 
                 };
             }

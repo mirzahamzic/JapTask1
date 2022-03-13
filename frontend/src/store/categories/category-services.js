@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "/api/Categories/";
 
 // Get all ingredients
-const getAllCategories = async (token) => {
+const getAllCategories = async (limit, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -11,7 +11,7 @@ const getAllCategories = async (token) => {
   };
 
   const response = await axios.get(
-    "https://localhost:5001/api/Categories/get-all-categories",
+    "https://localhost:5001/api/Categories/get-all-categories/" + limit,
     config
   );
 
