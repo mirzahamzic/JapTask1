@@ -24,11 +24,11 @@ First you need to migrate and create database as follows.
 - Enter in command line:
 
 ```
-dotnet ef add-migration InitialMigration
+dotnet ef migrations add InitialCreate
 ```
 
 ```
-dotnet ef update-database
+dotnet ef database update
 ```
 
 - CD into FRONTEND folder. In order to install ReactJS dependency modules enter to command line:
