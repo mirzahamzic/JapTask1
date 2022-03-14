@@ -37,13 +37,13 @@ dotnet ef database update
 npm install
 ```
 
-- In order to start server make sure you are in norm-calc root folder. To run application from single terminal enter:
+- In order to start server make sure you are in norm-calc root folder. To run application in terminal enter:
 
 ```
 dotnet run
 ```
 
-- In order to start frontend of the application make sure you are in frontend folder. Then enter:
+- In order to start frontend of the application make sure you are in other terminal, in the frontend folder. Then enter:
 
 ```
 npm start
