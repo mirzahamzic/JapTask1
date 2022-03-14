@@ -53,7 +53,6 @@ const AddRecipe = (props) => {
       categoryId: data.categoryId,
       ingredients: localIngredient,
     };
-    console.log(createdRecipe);
     dispatch(createRecipe(createdRecipe));
     toast.info("Recipe added.");
     navigate("/home");

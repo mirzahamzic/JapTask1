@@ -72,7 +72,6 @@ export const categorySlice = createSlice({
       const existingItems = state.categories.filter((o1) =>
         action.payload.some((o2) => o1.id === o2.id)
       );
-      console.log(existingItems);
       if (existingItems.length > 0) {
         return;
       }
