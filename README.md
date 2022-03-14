@@ -1,6 +1,6 @@
 # Normative Calculator App
 
-This application allowed user to login and create recipes based on ingredients already seeded to database. All ingredients have name, quantity and price in database. App calculate cost of each recipe and gives user overview of costs of each recipe based on chosen ingredients. 
+This application allows user to login and create recipes based on ingredients already seeded to database. All ingredients have name, quantity and price in database. App calculate cost of each recipe and gives user overview of costs of each recipe based on chosen ingredients. 
 
 
 ## Technologies
