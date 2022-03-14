@@ -75,7 +75,7 @@ namespace norm_calc
                 options.AddPolicy(name: "CORS",
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+                                      builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                                   });
             });
 

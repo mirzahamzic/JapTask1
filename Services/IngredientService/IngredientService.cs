@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using norm_calc.Data;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace norm_calc.Services.IngredientService
 {
@@ -16,14 +17,14 @@ namespace norm_calc.Services.IngredientService
         }
         public async Task<List<GetIngredientsDto>> GetAllIngredients()
         {
-            var ingredientsFromDB = _context.Ingredients.Select(i => new GetIngredientsDto()
+            var ingredientsFromDB = await _context.Ingredients.Select(i => new GetIngredientsDto()
             {
                 Id = i.Id,
                 Name = i.Name,
                 UnitQuantity = i.UnitQuantity,
                 UnitPrice = i.UnitPrice,
                 UnitOfMeasure = i.UnitOfMeasure,
-            }).ToList();
+            }).ToListAsync();
 
             return ingredientsFromDB;
         }
