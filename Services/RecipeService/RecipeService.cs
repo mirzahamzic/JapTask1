@@ -36,7 +36,9 @@ namespace norm_calc.Services.RecipeService
         {
             User user = _context.Users.FirstOrDefault(u => u.Id == GetUserId());
 
-            var newRecipe = new Recipe()
+            Recipe newRecipe = new Recipe();
+
+            newRecipe = new Recipe()
             {
                 Name = recipe.Name,
                 Description = recipe.Description,
