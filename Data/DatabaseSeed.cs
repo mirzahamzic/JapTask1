@@ -32,7 +32,7 @@ namespace norm_calc.Data
                         {
                             Name = "Brasno",
                             UnitQuantity = 10,
-                            UnitPrice = 5,
+                            UnitPrice = 50,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-1)
 
@@ -41,7 +41,7 @@ namespace norm_calc.Data
                         {
                             Name = "Secer",
                             UnitQuantity = 12,
-                            UnitPrice = 7,
+                            UnitPrice = 75,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -49,7 +49,7 @@ namespace norm_calc.Data
                         {
                             Name = "Ulje",
                             UnitQuantity = 25,
-                            UnitPrice = 6.5,
+                            UnitPrice = 120,
                             UnitOfMeasure = "l",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -57,7 +57,7 @@ namespace norm_calc.Data
                         {
                             Name = "Piletina",
                             UnitQuantity = 50,
-                            UnitPrice = 7,
+                            UnitPrice = 350,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -65,7 +65,7 @@ namespace norm_calc.Data
                         {
                             Name = "Maslinovo ulje",
                             UnitQuantity = 10,
-                            UnitPrice = 12,
+                            UnitPrice = 150,
                             UnitOfMeasure = "l",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -73,7 +73,7 @@ namespace norm_calc.Data
                         {
                             Name = "Trapist",
                             UnitQuantity = 18,
-                            UnitPrice = 12,
+                            UnitPrice = 230,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -81,7 +81,7 @@ namespace norm_calc.Data
                         {
                             Name = "Mocarela",
                             UnitQuantity = 8,
-                            UnitPrice = 20,
+                            UnitPrice = 160,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -89,7 +89,7 @@ namespace norm_calc.Data
                         {
                             Name = "Paradajz Sos",
                             UnitQuantity = 10,
-                            UnitPrice = 5,
+                            UnitPrice = 50,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -97,7 +97,7 @@ namespace norm_calc.Data
                         {
                             Name = "Kvasac",
                             UnitQuantity = 7,
-                            UnitPrice = 10,
+                            UnitPrice = 58,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -105,7 +105,7 @@ namespace norm_calc.Data
                         {
                             Name = "Sampinjoni",
                             UnitQuantity = 5,
-                            UnitPrice = 8.5,
+                            UnitPrice = 35,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -113,7 +113,7 @@ namespace norm_calc.Data
                         {
                             Name = "Cokalada",
                             UnitQuantity = 18,
-                            UnitPrice = 25,
+                            UnitPrice = 250,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -121,7 +121,7 @@ namespace norm_calc.Data
                         {
                             Name = "Kore za tortu",
                             UnitQuantity = 5,
-                            UnitPrice = 20,
+                            UnitPrice = 200,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 
@@ -129,7 +129,7 @@ namespace norm_calc.Data
                         {
                             Name = "Orasi",
                             UnitQuantity = 10,
-                            UnitPrice = 15,
+                            UnitPrice = 150,
                             UnitOfMeasure = "kg",
                             Created_at = DateTime.Now.AddDays(-2)
 

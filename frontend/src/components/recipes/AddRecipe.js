@@ -53,7 +53,6 @@ const AddRecipe = (props) => {
       categoryId: data.categoryId,
       ingredients: localIngredient,
     };
-    alert(JSON.stringify(createdRecipe));
     console.log(createdRecipe);
     dispatch(createRecipe(createdRecipe));
     toast.info("Recipe added.");
@@ -71,7 +70,6 @@ const AddRecipe = (props) => {
       toast.error("Please add ingredient");
       return;
     }
-    alert(JSON.stringify(data));
     setLocalIngredient((prevState) => [...prevState, data]);
   };
 
