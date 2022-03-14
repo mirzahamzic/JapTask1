@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using norm_calc.Data;
 using norm_calc.Dtos;
@@ -17,13 +18,15 @@ namespace norm_calc.Services.RecipeService
 
         //used for access to user id from the token and make it available in all methods
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMapper _mapper;
 
-        public RecipeService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+        public RecipeService(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             _context = context;
 
             //used for access to user id from the token and make it available in all methods
             _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
         }
 
         //getting user id from token
@@ -87,6 +90,10 @@ namespace norm_calc.Services.RecipeService
 
             }).Skip(limit).Take(5).ToListAsync();
 
+            //var recipesFromDB = await _context.Recipes.Include(r => r.Recipes_Ingredients).ToListAsync();
+
+            //var recipes = recipesFromDB.Select(r => _mapper.Map<RecipeToGetDto>(r)).ToList();
+
             return recipesFromDB;
         }
 
@@ -146,26 +153,29 @@ namespace norm_calc.Services.RecipeService
 
         public async Task<List<GetRecipeDto>> SearchRecipe(string searchTerm)
         {
-            var recipeFromDB = await _context.Recipes.Where(n => n.Name.ToLower().Contains(searchTerm) || n.Description.ToLower().Contains(searchTerm)).Select(recipe => new GetRecipeDto()
-            {
-                Id = recipe.Id,
-                Name = recipe.Name,
-                Description = recipe.Description,
-
-                //Cost = recipe.Cost,
-                CategoryName = recipe.Category.Name,
-                Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
+            var recipeFromDB = await _context.Recipes
+                .Include(r => r.Recipes_Ingredients)
+                .Where(n => n.Name.ToLower().Contains(searchTerm) || n.Description.ToLower().Contains(searchTerm))
+                .Select(recipe => new GetRecipeDto()
                 {
-                    Id = n.IngredientId,
-                    IngredientName = n.Ingredient.Name, // ovo je polje iz ingredient tabele
-                    IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
-                    IngredientUnit = n.Unit, // ovo je polje iz join tabele
-                    UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
-                    UnitQuantity = n.Ingredient.UnitQuantity,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+                    Id = recipe.Id,
+                    Name = recipe.Name,
+                    Description = recipe.Description,
+
+                    //Cost = recipe.Cost,
+                    CategoryName = recipe.Category.Name,
+                    Ingredient = recipe.Recipes_Ingredients.Select(n => new GetIngredientInRecipeDto()
+                    {
+                        Id = n.IngredientId,
+                        IngredientName = n.Ingredient.Name, // ovo je polje iz ingredient tabele
+                        IngredientQuantity = n.Quantity, //ovo je polje iz join tabele
+                        IngredientUnit = n.Unit, // ovo je polje iz join tabele
+                        UnitPrice = n.Ingredient.UnitPrice,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
+                        UnitQuantity = n.Ingredient.UnitQuantity,//ovo je polje iz ingredient tabele - jedinicna cijena sastojka u bazi
 
 
-                }).ToList()
-            }
+                    }).ToList()
+                }
            ).ToListAsync();
 
             return recipeFromDB;

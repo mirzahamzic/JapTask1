@@ -28,7 +28,6 @@ const RecipesByCategory = () => {
     searchTerm,
   } = useSelector((state) => state.recipe);
 
-
   useEffect(() => {
     if (isError) {
       toast.error(message);
@@ -56,35 +55,38 @@ const RecipesByCategory = () => {
   return (
     <Container className="my-4">
       <div className="text-warning">
-        <h1 className="my-4">
-          Category: {categoryName}
-        </h1>
+        <h1 className="my-4">Category: {categoryName}</h1>
       </div>
       <div className="my-5">
         <Search />
       </div>
       <hr />
-      {recipesByCategory.map((recipe, i) => (
-        <div key={recipe.id}>
-          <Row>
-            <Col sm={12} md={6}>
-              <h2>{recipe.name}</h2>
-            </Col>
-            <Col sm={12} md={4}>
-              <h2>
-                <GiTakeMyMoney className="text-success" /> {recipe.cost} KM{" "}
-              </h2>
-            </Col>
-            <Col sm={12} md={2}>
-              <Link to={`/recipes/${recipe.id}`}>
-                <Button variant="success">Details</Button>
-              </Link>
-            </Col>
-          </Row>
-          <hr />
-        </div>
-      ))}
-
+      {recipesByCategory.length > 0
+        ? recipesByCategory
+            .map((item) => item)
+            .sort((a, b) => a.cost - b.cost)
+            .map((recipe, i) => (
+              <div key={recipe.id}>
+                <Row>
+                  <Col sm={12} md={6}>
+                    <h2>{recipe.name}</h2>
+                  </Col>
+                  <Col sm={12} md={4}>
+                    <h2>
+                      <GiTakeMyMoney className="text-success" />{" "}
+                      {recipe.cost.toFixed(2)} KM{" "}
+                    </h2>
+                  </Col>
+                  <Col sm={12} md={2}>
+                    <Link to={`/recipes/${recipe.id}`}>
+                      <Button variant="success">Details</Button>
+                    </Link>
+                  </Col>
+                </Row>
+                <hr />
+              </div>
+            ))
+        : "Please add some recipes to this category."}
     </Container>
   );
 };

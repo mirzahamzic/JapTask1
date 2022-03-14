@@ -8,8 +8,8 @@ namespace norm_calc
     {
         public AutoMapperProfile()
         {
-            CreateMap<Recipe, GetRecipeDto>();
-            CreateMap<Ingredient, AddIngredientToRecipeDto>();
+            CreateMap<Recipe, RecipeToGetDto>();
+            CreateMap<Recipe_Ingredient, IngredientToGetDto>();
             CreateMap<AddRecipeDto, Recipe>();
         }
     }
