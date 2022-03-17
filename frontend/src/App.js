@@ -24,7 +24,8 @@ function App() {
             {/* public routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Login />} />
-            protected routes
+
+            {/* protected routes */}
             <Route element={<PrivateRoute />}>
               <Route path="/home" element={<Home />} />
               <Route path="/addrecipe" element={<AddRecipe />} />
@@ -33,16 +34,9 @@ function App() {
                 element={<RecipesByCategory />}
               />
               <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
-              {/* <Route path="/question/:questionId" element={<Question />} /> */}
-              {/* <Route path="/addquestion" element={<AddQuestion />} />
-              <Route
-                path="/editquestion/:questionId"
-                element={<EditQuestion />}
-              />
-              <Route path="/editanswer/:answerId" element={<EditAnswer />} />
-              <Route path="/myquestions" element={<MyQuestions />} />
-              <Route path="/profile" element={<MyProfile />} /> */}
             </Route>
+
+            {/* 404 route */}
             <Route
               path="*"
               element={
